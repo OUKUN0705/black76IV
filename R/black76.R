@@ -11,6 +11,7 @@
 #' @param sigma Annualsed volatility, square root of variance. Numeric object.
 #'
 #' @return List of 2 numeric objects, Option premium and Vega.
+#' @export
 #'
 #' @examples
 #' black76(type = "C", Ft = 48.03, Time = 0.1423, K = 50, sigma = 0.2, r = 0.03)

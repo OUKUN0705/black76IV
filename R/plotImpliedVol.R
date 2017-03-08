@@ -19,6 +19,8 @@
 #' @param theta Angles defining the viewing the azimuthal direction.
 #' @param maxiter Maximum number of iteration
 #'
+#' @export
+#'
 #' @examples
 #' example(black76ImVoDF)
 #' df2 <- df2[sample(x = 1:nrow(df2), size = 10), ]

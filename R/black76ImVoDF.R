@@ -25,6 +25,8 @@
 #' @return Implied volatility calculated in a vector or as a column in the
 #'   dataframe (default).
 #'
+#' @export
+#'
 #' @examples
 #' Ft <- 50
 #' Kvec <- 20:80

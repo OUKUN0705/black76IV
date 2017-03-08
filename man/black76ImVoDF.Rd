@@ -18,8 +18,7 @@ black76ImVoDF(df, Ftdf, Kdf, typedf, Timedf, rdf, optionPricedf,
 \item{typedf}{Name of a columns in the dataframe corresponding to option
 type.}
 
-\item{Timedf}{Name of a columns in the dataframe corresponding to interest
-rate.}
+\item{Timedf}{Name of a columns in the dataframe corresponding to time to maturity.}
 
 \item{rdf}{Name of a columns in the dataframe corresponding to interest rate.}
 

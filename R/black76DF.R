@@ -16,6 +16,7 @@
 #' @param rdf Name of a columns in the dataframe corresponding to interest rate.
 #'
 #' @return Option premium calculated as a column in the dataframe.
+#' @export
 #'
 #' @examples
 #' Ft <- 50

@@ -16,6 +16,7 @@
 #' @param maxiter Maximum number of iteration.
 #'
 #' @return Calculated implied volatilited.
+#' @export
 #'
 #' @examples
 #' price <- black76(type = "C", Ft = 48.03, Time = 0.1423, K = 50,

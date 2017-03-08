@@ -5,16 +5,46 @@
 \title{plotImpliedVol}
 \usage{
 plotImpliedVol(df, Ftdf, Kdf, typedf, Timedf, rdf, optionPricedf,
-  sigma_ini = NULL, tol = 1e-04, maxiter = 20, phi = 45, theta = 120)
+  sigma_ini = NULL, tol = 1e-04, maxiter = 20, phi = -70, theta = 5)
+}
+\arguments{
+\item{df}{A dataframe.}
+
+\item{Ftdf}{Name of a columns in the dataframe corresponding to future price.}
+
+\item{Kdf}{Name of a columns in the dataframe corresponding to strike price.}
+
+\item{typedf}{Name of a columns in the dataframe corresponding to option
+type.}
+
+\item{Timedf}{Name of a columns in the dataframe corresponding to time to maturity.}
+
+\item{rdf}{Name of a columns in the dataframe corresponding to interest rate.}
+
+\item{optionPricedf}{Observed market option premium. Numeric object.}
+
+\item{sigma_ini}{Initial value for iteration in the Newton-Raphson method.
+Numeric object or NULL(default). If no value is provided, the sigma which
+maximizes Vega is choosen.}
+
+\item{tol}{Error tolerance of the interation step.}
+
+\item{maxiter}{Maximum number of iteration}
+
+\item{phi}{Angles defining the viewing the colatitude direction.}
+
+\item{theta}{Angles defining the viewing the azimuthal direction.}
 }
 \description{
-\code{plotImpliedVol}
+\code{plotImpliedVol} takes a data frame, applies \code{black76ImVoDF} to calculate
+implied volatility and plot it against strike price and time to maturity.
 }
 \examples{
 example(black76ImVoDF)
 df2 <- df2[sample(x = 1:nrow(df2), size = 10), ]
 head(df2)
+
 plotImpliedVol(df = df2, Ftdf = 'Ft', Kdf = 'Strike', typedf = 'type',
               Timedf = 'Time', rdf = 'r', optionPricedf = 'optionPrice',
-              tol = 1e-5, maxiter = 1000, phi = 45, theta = 120)
+              tol = 1e-5, maxiter = 1000, phi = -70, theta = 5)
 }
