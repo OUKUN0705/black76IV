@@ -4,7 +4,8 @@ Title: Black76 model
 Version: 0.1.0
 Author: Ou Kun
 Maintainer: Ou Kun <kou001@e.ntu.edu.sg>
-Description: Calculate the premium of European option on future based on black model, Black(1976). 
+Description: Calculate the premium of European option on future based on black model, 
+             Black(1976). Tools for computing and plotting implied volatiltiy.
 Depends: rgl
 License: GPL-3
 Encoding: UTF-8

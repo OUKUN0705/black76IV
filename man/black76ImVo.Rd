@@ -32,8 +32,8 @@ maximizes Vega is choosen.}
 Calculated implied volatilited.
 }
 \description{
-\code{black76ImVo} returns the implied volatility based on black model, Black(1976).
-It employs Newton–Raphson method based on vega of the option.
+\code{black76ImVo} returns the implied volatility based on black model,
+Black(1976). It employs Newton–Raphson method based on vega of the option.
 }
 \examples{
 price <- black76(type = "C", Ft = 48.03, Time = 0.1423, K = 50,
@@ -46,11 +46,16 @@ price <- black76(type = "C", Ft = 50, Time = 1, K = 62,
 black76ImVo(type = "C", Ft = 50, Time = 1, K = 62, r = 0.2186,
             optionPrice = price[1], tol = 1e-10, maxiter = 20)
 
+This example illustrates when the Time value (volatility) is too
+small compared to intrinsic value (moneyness), the root finding is too
+difficult due to the flat slope around the root (close to zero vega).
 price <- black76(type = "C", Ft = 50, Time = 0.25, K = 26,
                  sigma = 0.1261, r = 0.2584)
-
-black76ImVo(type = "C", Ft = 50, Time = 5, K = 22, r = 0.3588,
+black76ImVo(type = "C", Ft = 50, Time = 5, K = 26, r = 0.2584,
             optionPrice = price[1], tol = 1e-20, maxiter = 1000)
-
+price <- black76(type = "C", Ft = 50, Time = 0.25, K = 26,
+                 sigma = 0.1, r = 0.2584)
+price <- black76(type = "C", Ft = 50, Time = 0.25, K = 26,
+                 sigma = 0.3, r = 0.2584)
 
 }

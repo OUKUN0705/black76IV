@@ -1,7 +1,7 @@
 #' black76ImVo
 #'
-#' \code{black76ImVo} returns the implied volatility based on black model, Black(1976).
-#' It employs Newton–Raphson method based on vega of the option.
+#' \code{black76ImVo} returns the implied volatility based on black model,
+#' Black(1976). It employs Newton–Raphson method based on vega of the option.
 #'
 #' @param Ft Future price. Numeric object.
 #' @param K Strike price. Numeric object.
@@ -29,14 +29,18 @@
 #' black76ImVo(type = "C", Ft = 50, Time = 1, K = 62, r = 0.2186,
 #'             optionPrice = price[1], tol = 1e-10, maxiter = 20)
 #'
+#' This example illustrates when the Time value (volatility) is too
+#' small compared to intrinsic value (moneyness), the root finding is too
+#' difficult due to the flat slope around the root (close to zero vega).
 #' price <- black76(type = "C", Ft = 50, Time = 0.25, K = 26,
 #'                  sigma = 0.1261, r = 0.2584)
-#'
-#' black76ImVo(type = "C", Ft = 50, Time = 5, K = 22, r = 0.3588,
+#' black76ImVo(type = "C", Ft = 50, Time = 5, K = 26, r = 0.2584,
 #'             optionPrice = price[1], tol = 1e-20, maxiter = 1000)
+#' price <- black76(type = "C", Ft = 50, Time = 0.25, K = 26,
+#'                  sigma = 0.1, r = 0.2584)
+#' price <- black76(type = "C", Ft = 50, Time = 0.25, K = 26,
+#'                  sigma = 0.3, r = 0.2584)
 #'
-#'
-
 black76ImVo <- function(Ft, K, type, Time, r, optionPrice, sigma_ini = NULL,
                         tol = 1e-10, maxiter = 1000) {
 
@@ -58,8 +62,11 @@ black76ImVo <- function(Ft, K, type, Time, r, optionPrice, sigma_ini = NULL,
 
       while ((abs(fx[1] - optionPrice) > tol) && (iter <= maxiter)) {
         sigma <- sigma - (fx[1] - optionPrice) / fx[2]
-        # too large sigma renders vega zero in next iteration !!! work well
+
+        # too large/small sigma renders vega zero in next iteration.
+        # one can comment it to compare the performance
         sigma <- ifelse(abs(sigma) > 1e2, runif(1, 0.1, 0.2), sigma)
+
         fx <- black76(Ft = Ft, K = K, Time = Time, r = r, type = type,
                       sigma = sigma)
         iter <- iter + 1
@@ -82,7 +89,7 @@ black76ImVo <- function(Ft, K, type, Time, r, optionPrice, sigma_ini = NULL,
       {
         #######
         sigma_l <- 0 # volatility cannot be negative
-        sigma_r <- 1 # initial guess
+        sigma_r <- 0.1 # initial guess
 
         fn_l <- black76(Ft = Ft, K = K, Time = Time, r = r, type = type,
                           sigma = sigma_l)[1] - optionPrice
@@ -91,10 +98,10 @@ black76ImVo <- function(Ft, K, type, Time, r, optionPrice, sigma_ini = NULL,
 
         ## make sure we start with fn_l * fn_r < 0
         while ((fn_l * fn_r > 0) && (iter <= maxiter ^ 2)) {
-          sigma_r <- sigma_r + 1
+          sigma_r <- sigma_r + 0.01
           fn_r <- black76(Ft = Ft, K = K, Time = Time, r = r, type = type,
                           sigma = sigma_r)[1] - optionPrice
-          iter <- iter + 1
+          iter <- iter + 0.01
         }
 
         iter <- 1
@@ -114,9 +121,6 @@ black76ImVo <- function(Ft, K, type, Time, r, optionPrice, sigma_ini = NULL,
           iter = iter + 1
         }
         return((sigma_l + sigma_r) / 2)
-
-
-
         ###
         sigma
       }, warning = function(war) {
